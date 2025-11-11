@@ -1,0 +1,55 @@
+{% extends 'admin/page3.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5" style="max-width: 600px;">
+  <div class="card shadow-lg border-0 p-4">
+    <h3 class="text-center text-primary mb-4">📚 Add New Book</h3>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success text-center py-2">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Book Name</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Author</label>
+        <input type="text" name="author" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Number of Copies</label>
+        <input type="number" name="numberof_copies" min="1" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Category</label>
+        <select name="category" class="form-select" required>
+          <option value="" disabled selected>Choose a category</option>
+          {% for i in m %}
+            <option value="{{ i.id }}">{{ i.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Book Cover Photo (optional)</label>
+        <input type="file" name="file" accept="image/*" class="form-control">
+        <small class="text-muted">If no file is uploaded, "no pic" will be stored.</small>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary">Add Book</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

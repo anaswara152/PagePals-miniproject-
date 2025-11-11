@@ -1,0 +1,64 @@
+{% extends 'admin/page3.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center fs-4 fw-semibold">
+      📚 All Bookings
+    </div>
+    <div class="card-body">
+      {% if a %}
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Student</th>
+              <th>Book Name</th>
+              <th>Cover</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>No. of Copies</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in a %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ i.studentid.name }}</td>
+              <td>{{ i.bookid.name }}</td>
+              <td>
+                {% if i.bookid.coverphoto %}
+                  <img src="{{ i.bookid.coverphoto.url }}" alt="Book Cover" width="60" height="80" class="rounded shadow-sm border">
+                {% else %}
+                  <span class="text-muted">No Image</span>
+                {% endif %}
+              </td>
+              <td>{{ i.bookid.author }}</td>
+              <td>{{ i.bookid.categoryid.name }}</td>
+              <td>{{ i.bookid.numberof_copies }}</td>
+              <td class="fw-semibold text-capitalize">
+                {{ i.status }}
+              </td>
+              <td>
+                {% if i.status == "returned" %}
+                  <a href="{% url 'acceptbook' i.id %}" class="btn btn-success btn-sm">Approve</a>
+                {% else %}
+                  <span class="badge bg-secondary">{{ i.status|title }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-center text-muted fs-5 mt-3">No bookings available.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

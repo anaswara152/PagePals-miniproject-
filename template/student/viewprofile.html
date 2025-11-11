@@ -1,0 +1,39 @@
+{% extends 'student/page1.html' %}
+{% block title %}My Profile{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-lg border-0 rounded-3 p-4">
+            <h2 class="text-center text-primary mb-4">My Profile</h2>
+            
+            <table class="table table-borderless">
+                <tr>
+                    <td><strong>Student ID:</strong></td>
+                    <td>{{ m.id }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Full Name:</strong></td>
+                    <td>{{ m.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Age:</strong></td>
+                    <td>{{ m.age }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Username:</strong></td>
+                    <td>{{ m.username }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Address:</strong></td>
+                    <td>{{ m.address }}</td>
+                </tr>
+            </table>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'editprofile' %}" class="btn btn-primary px-4">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

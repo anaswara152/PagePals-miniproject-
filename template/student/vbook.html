@@ -1,0 +1,53 @@
+{% extends 'student/page1.html' %}
+{% block title %}Available Books{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Available Books</h2>
+
+    {% if b %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle shadow-sm">
+            <thead class="bg-primary text-white text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Cover</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Copies</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in b %}
+                <tr class="text-center">
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% if book.coverphoto %}
+                            <img src="{{ book.coverphoto.url }}" alt="Cover" class="rounded" width="60" height="80">
+                        {% else %}
+                            <span class="text-muted">No Image</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.categoryid.categoryname }}</td>
+                    <td>{{ book.numberof_copies }}</td>
+                    <td>
+                        {% if book.numberof_copies > 0 %}
+                            <a href="{% url 'bookingbook' book.id %}" class="btn btn-sm btn-primary">Book Now</a>
+                        {% else %}
+                            <span class="btn btn-sm btn-secondary disabled">Out of Stock</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-center text-muted mt-5">No books available right now.</p>
+    {% endif %}
+</div>
+{% endblock %}

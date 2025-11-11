@@ -1,0 +1,62 @@
+{% extends 'admin/page3.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5" style="max-width: 600px;">
+  <div class="card shadow-lg border-0 p-4">
+    <h3 class="text-center text-success mb-4">✏️ Edit Book Details</h3>
+
+    {% for i in u %}
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Book Name</label>
+        <input type="text" name="name" value="{{ i.name }}" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Author</label>
+        <input type="text" name="author" value="{{ i.author }}" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Number of Copies</label>
+        <input type="number" name="numberof_copies" value="{{ i.numberof_copies }}" min="1" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Category</label>
+        <select name="category" class="form-select">
+          <option value="{{ i.categoryid.id }}">{{ i.categoryid.name }}</option>
+          {% for c in m %}
+            <option value="{{ c.id }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Change Cover Photo</label>
+        <input type="file" name="file" class="form-control">
+      </div>
+
+      <div class="text-center mb-3">
+        {% if i.coverphoto %}
+          <img src="{{ i.coverphoto.url }}" alt="Book Cover" class="rounded shadow" width="100" height="130">
+        {% else %}
+          <p class="text-muted">No Image</p>
+        {% endif %}
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">Update Book</button>
+      </div>
+    </form>
+    {% endfor %}
+
+    <div class="text-center mt-3">
+      <a href="{% url 'viewbook' %}" class="text-decoration-none text-secondary">← Back to Book List</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
