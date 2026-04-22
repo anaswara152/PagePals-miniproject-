@@ -65,12 +65,12 @@ python manage.py runserver
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
-* 📱 Mobile App Version
-* 🔔 Email Reminder for Due Books
-* 📊 Advanced Analytics Dashboard
-* ☁️ Cloud Database Integration
+*  Mobile App Version
+*  Email Reminder for Due Books
+*  Advanced Analytics Dashboard
+*  Cloud Database Integration
 
 ---
 
